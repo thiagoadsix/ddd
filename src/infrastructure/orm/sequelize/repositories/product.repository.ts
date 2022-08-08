@@ -15,8 +15,14 @@ export class ProductRepository implements ProductRepositoryInterface {
     await ProductModel.update({ name: entity.name, price: entity.price}, { where: { id: entity.id } })
   }
 
-  find(entity: Product): Promise<Product> {
-    throw new Error("Method not implemented.");
+  async find(id: string): Promise<Product> {
+    const product = await ProductModel.findOne({ where: { id: id } })
+
+    return new Product( 
+      product.id,
+      product.name,
+      product.price
+    )
   }
 
   findAll(): Promise<Product[]> {

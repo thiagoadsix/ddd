@@ -65,4 +65,24 @@ describe('Product repository unit test', () => {
 
     expect(productModel).toStrictEqual(result)
   });
+
+  it('should find a product', async () => {
+    const productRepository = new ProductRepository()
+    const product = new Product("3", "iPhone 13", 999)
+
+    await productRepository.create(product)
+
+    const model = await ProductModel.findOne({ where: { id: "3" } })
+
+
+    const productFound = await productRepository.find(product.id)
+
+    const productModel = model.toJSON()
+
+    expect(productModel).toStrictEqual({
+      id: productFound.id,
+      name: productFound.name,
+      price: productFound.price
+    })
+  });
 });
