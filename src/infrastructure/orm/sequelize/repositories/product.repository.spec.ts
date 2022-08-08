@@ -9,7 +9,7 @@ describe('Product repository unit test', () => {
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
-      storage: ":memory",
+      storage: ":memory:",
       logging: false,
       sync: { force: true }
     });
@@ -37,6 +37,30 @@ describe('Product repository unit test', () => {
       id: "1",
       name: "iPhone 13",
       price: 999
+    }
+
+    expect(productModel).toStrictEqual(result)
+  });
+
+  it('should update a product', async () => {
+    const productRepository = new ProductRepository()
+    const product = new Product("2", "iPhone 13", 999)
+
+    await productRepository.create(product)
+
+    product.changeName("iPhone 13 Pro")
+    product.changePrice(1299)
+
+    await productRepository.update(product)
+
+    const model = await ProductModel.findOne({ where: { id: "2" } })
+
+    const productModel = model.toJSON()
+
+    const result = {
+      id: "2",
+      name: "iPhone 13 Pro",
+      price: 1299
     }
 
     expect(productModel).toStrictEqual(result)
