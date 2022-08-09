@@ -53,4 +53,16 @@ describe('Customer Repository unit tests', () => {
 
     expect(customerModel.name).toBe(customerEntity.name)
   });
+
+  it('should find a customer', async () => {
+    const customerRepository = new CustomerRepository()
+    const customerEntity = new Customer("3", "Raphaella")
+    const addressEntity = new Address("Street Test", 12, "57525000", "City Test", "Country Test", "ST")
+    customerEntity.address = addressEntity
+    await customerRepository.create(customerEntity)
+    
+    const customerModel = await customerRepository.find(customerEntity.id)
+
+    expect(customerModel.name).toBe(customerEntity.name)
+  });
 })
