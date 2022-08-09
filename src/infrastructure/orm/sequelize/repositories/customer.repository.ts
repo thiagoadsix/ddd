@@ -38,14 +38,30 @@ export class CustomerRepository implements CustomerRepositoryInterface {
   }
 
   async find(id: string): Promise<Customer> {
-    const model = await CustomerModel.findOne({ where: { id: id } })
+    let model: CustomerModel;
 
-    const customer = new Customer(model.id, model.name)
-    const address = new Address(model.street, model.number, model.zip, model.city, model.country, model.state)
+    try {
+      model = await CustomerModel.findOne({
+        where: { id: id },
+        rejectOnEmpty: true,
+      });
+    } catch (error) {
+      throw new Error("Customer not found");
+    }
 
-    customer.address = address
+    const customer = new Customer(model.id, model.name);
+    const address = new Address(
+      model.street,
+      model.number,
+      model.zip,
+      model.city,
+      model.country,
+      model.state
+    );
 
-    return customer
+    customer.address = address;
+
+    return customer;
   }
 
   findAll(): Promise<Customer[]> {

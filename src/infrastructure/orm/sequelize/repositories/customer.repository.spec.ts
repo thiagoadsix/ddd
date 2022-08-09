@@ -65,4 +65,14 @@ describe('Customer Repository unit tests', () => {
 
     expect(customerModel.name).toBe(customerEntity.name)
   });
+
+  it('should throw an error if the customer entity is not found', async () => {
+    const customerRepository = new CustomerRepository()
+
+    expect(
+      async () => {
+        await customerRepository.find("4")
+      }
+    ).rejects.toThrow("Customer not found")
+  });
 })
