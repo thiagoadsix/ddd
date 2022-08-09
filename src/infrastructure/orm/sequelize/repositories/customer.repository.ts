@@ -69,6 +69,8 @@ export class CustomerRepository implements CustomerRepositoryInterface {
 
     return customers.map((customer) => {
       const customerEntity = new Customer(customer.id, customer.name);
+      customerEntity.addRewardPoints(customer.rewardPoints)
+
       const addressEntity = new Address(
         customer.street,
         customer.number,
@@ -77,6 +79,10 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         customer.country,
         customer.state
       );
+
+      if (customer.active) {
+        customerEntity.activate()
+      }
 
       customerEntity.address = addressEntity;
 
