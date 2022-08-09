@@ -38,4 +38,19 @@ describe('Customer Repository unit tests', () => {
     expect(customerModel.name).toBe(customerEntity.name)
     expect(customerModel.street).toBe(customerEntity.address.street)
   });
+
+  it('should update a customer model', async () => {
+    const customerRepository = new CustomerRepository()
+    const customerEntity = new Customer("2", "Thainá")
+    const addressEntity = new Address("Street Test", 69, "57525000", "City Test", "Country Test", "ST")
+    customerEntity.address = addressEntity
+    await customerRepository.create(customerEntity)
+
+    customerEntity.changeName("Kamilla")
+    await customerRepository.update(customerEntity)
+
+    const customerModel = await CustomerModel.findOne({ where: { id: customerEntity.id } })
+
+    expect(customerModel.name).toBe(customerEntity.name)
+  });
 })

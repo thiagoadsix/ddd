@@ -14,12 +14,26 @@ export class CustomerRepository implements CustomerRepositoryInterface {
       zip: entity.address.zip,
       city: entity.address.city,
       country: entity.address.country,
-      state: entity.address.state
-    })
+      state: entity.address.state,
+    });
   }
 
-  update(entity: Customer): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(entity: Customer): Promise<void> {
+    await CustomerModel.update(
+      {
+        id: entity.id,
+        name: entity.name,
+        active: entity.isActive(),
+        rewardPoints: entity.rewardPoints,
+        street: entity.address.street,
+        number: entity.address.number,
+        zip: entity.address.zip,
+        city: entity.address.city,
+        country: entity.address.country,
+        state: entity.address.state,
+      },
+      { where: { id: entity.id } }
+    );
   }
 
   find(id: string): Promise<Customer> {
