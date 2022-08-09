@@ -64,7 +64,23 @@ export class CustomerRepository implements CustomerRepositoryInterface {
     return customer;
   }
 
-  findAll(): Promise<Customer[]> {
-    throw new Error("Method not implemented.");
+  async findAll(): Promise<Customer[]> {
+    const customers = await CustomerModel.findAll();
+
+    return customers.map((customer) => {
+      const customerEntity = new Customer(customer.id, customer.name);
+      const addressEntity = new Address(
+        customer.street,
+        customer.number,
+        customer.zip,
+        customer.city,
+        customer.country,
+        customer.state
+      );
+
+      customerEntity.address = addressEntity;
+
+      return customerEntity;
+    });
   }
 }

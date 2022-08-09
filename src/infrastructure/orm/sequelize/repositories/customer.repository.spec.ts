@@ -75,4 +75,23 @@ describe('Customer Repository unit tests', () => {
       }
     ).rejects.toThrow("Customer not found")
   });
+
+  it('should find all customers', async () => {
+    const customerRepository = new CustomerRepository()
+
+    const customerEntity1 = new Customer("1", "Thiago")
+    const addressEntity1 = new Address("Street Test", 13, "57525000", "City Test", "Country Test", "ST")
+    customerEntity1.address = addressEntity1
+
+    const customerEntity2 = new Customer("2", "Thainá")
+    const addressEntity2 = new Address("Street Test 2", 13, "57525002", "City Test 2", "Country Test 2", "S2")
+    customerEntity2.address = addressEntity2
+
+    await customerRepository.create(customerEntity1)
+    await customerRepository.create(customerEntity2)
+
+    const customers = await customerRepository.findAll()
+
+    expect(customers.length).toBe(2)
+  });
 })
