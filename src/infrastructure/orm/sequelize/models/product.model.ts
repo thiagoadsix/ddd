@@ -1,7 +1,7 @@
 import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 
 @Table({ 
-  name: { singular: "products" }, 
+  name: { plural: "products" }, 
   timestamps: false
 })
 export class ProductModel extends Model {

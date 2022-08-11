@@ -1,11 +1,12 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { CustomerModel } from "./customer.model"
+import { OrderItemModel } from "./order-item.model";
 
 @Table({ 
-  name: { singular: "orders" }, 
+  name: { plural: "orders" }, 
   timestamps: false
 })
-export class OderModel extends Model {
+export class OrderModel extends Model {
   @PrimaryKey
   @Column
   declare id: string;
@@ -16,6 +17,9 @@ export class OderModel extends Model {
 
   @BelongsTo(() => CustomerModel)
   declare customer: CustomerModel
+
+  @HasMany(() => OrderItemModel)
+  declare items: OrderItemModel[]
 
   @PrimaryKey
   @Column({ allowNull: false, type: "integer" })
