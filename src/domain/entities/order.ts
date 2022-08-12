@@ -47,6 +47,10 @@ export class Order {
     return this._items;
   }
 
+  set items(items: OrderItem[]) {
+    this._items = items
+  }
+
   total(): number {
     return this._items.reduce(
       (prevItem, currentItem) => prevItem + currentItem.price,

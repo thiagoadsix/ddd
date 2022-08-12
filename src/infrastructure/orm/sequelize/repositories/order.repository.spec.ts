@@ -92,4 +92,64 @@ describe("Customer Repository unit tests", () => {
       ]
     })
   });
+
+  it('should update an order', async () => {
+    const customerRepository = new CustomerRepository();
+    const customer = new Customer("123", "Thiago");
+    const address = new Address(
+      "Street Test",
+      13,
+      "57525000",
+      "City Test",
+      "Country Test",
+      "ST"
+    );
+    customer.address = address;
+    await customerRepository.create(customer);
+
+    const productRepository = new ProductRepository();
+    const product = new Product("123", "Name Test", 14);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem(
+      "1",
+      product.id,
+      product.name,
+      product.price,
+      2
+    );
+
+    const order = new Order("1", customer.id, [orderItem]);
+
+    const orderRepository = new OrderRepository();
+    await orderRepository.create(order);
+
+    product.changeName("Name Test Update")
+    product.changePrice(28)
+
+    order.items = [new OrderItem("1", product.id, product.name, product.price, 4 )]
+
+    await orderRepository.update(order)
+
+    const orderModel = await OrderModel.findOne({
+      where: { id: order.id },
+      include: [{model: OrderItemModel}],
+    });
+
+    expect(orderModel.toJSON()).toStrictEqual({
+      id: "1",
+      customerId: customer.id,
+      total: order.total(),
+      items: [
+        {
+          id: orderItem.id,
+          name: orderItem.name,
+          price: orderItem.price,
+          quantity: orderItem.quantity,
+          orderId: order.id,
+          productId: orderItem.productId
+        }
+      ]
+    })
+  });
 });
