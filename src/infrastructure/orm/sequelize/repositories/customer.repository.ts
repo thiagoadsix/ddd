@@ -1,6 +1,7 @@
-import { Address } from "../../../../domain/entities/address";
-import { Customer } from "../../../../domain/entities/customer";
-import { CustomerRepositoryInterface } from "../../../../domain/repositories/customer-repository.interface";
+import { Address } from "~domain/entities/address";
+import { Customer } from "~domain/entities/customer";
+import { CustomerRepositoryInterface } from "~domain/repositories/customer-repository.interface";
+
 import { CustomerModel } from "../models/customer.model";
 
 export class CustomerRepository implements CustomerRepositoryInterface {

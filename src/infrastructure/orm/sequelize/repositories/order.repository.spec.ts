@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize-typescript";
 
-import { Address } from "../../../../domain/entities/address";
-import { Order } from "../../../../domain/entities/order";
-import { OrderItem } from "../../../../domain/entities/order-item";
-import { Product } from "../../../../domain/entities/product";
-import { Customer } from "../../../../domain/entities/customer";
+import { Address } from "~domain/entities/address";
+import { Order } from "~domain/entities/order";
+import { OrderItem } from "~domain/entities/order-item";
+import { Product } from "~domain/entities/product";
+import { Customer } from "~domain/entities/customer";
 
 import { CustomerModel } from "../models/customer.model";
 import { OrderItemModel } from "../models/order-item.model";
