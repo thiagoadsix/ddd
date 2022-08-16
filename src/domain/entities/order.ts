@@ -53,7 +53,7 @@ export class Order {
 
   total(): number {
     return this._items.reduce(
-      (prevItem, currentItem) => prevItem + currentItem.price,
+      (prevItem, currentItem) => prevItem + currentItem.subTotalPrice,
       0
     );
   }

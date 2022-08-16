@@ -64,8 +64,6 @@ export class OrderRepository implements RepositoryInterface<Order> {
 
     const order = new Order(model.id, model.customerId, items);
 
-    console.log('Implementation', {orderItems: order.items})
-
     return order;
   }
 

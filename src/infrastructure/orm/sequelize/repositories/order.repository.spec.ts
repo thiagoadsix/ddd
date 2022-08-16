@@ -194,5 +194,6 @@ describe("Customer Repository unit tests", () => {
 
     expect(result.id).toBe(order.id);
     expect(result.customerId).toBe(order.customerId);
+    expect(result.items.shift().price).toBe(order.items.shift().price);
   });
 });
