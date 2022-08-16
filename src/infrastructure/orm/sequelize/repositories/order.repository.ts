@@ -67,7 +67,16 @@ export class OrderRepository implements RepositoryInterface<Order> {
     return order;
   }
 
-  findAll(): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+  async findAll(): Promise<Order[]> {
+    const orders = await OrderModel.findAll({ include: [{ model: OrderItemModel }] })    
+    return orders.map(order => {
+      const orderItems: Array<OrderItem> = []
+
+      for (const iterator of order.items) {
+        orderItems.push(new OrderItem(iterator.id, iterator.productId, iterator.name, iterator.price, iterator.quantity))
+      }
+
+      return new Order(order.id, order.customerId, orderItems)
+    });
   }
 }
