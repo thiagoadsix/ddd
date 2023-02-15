@@ -51,7 +51,7 @@ describe("Customer Repository unit tests", () => {
       "Country Test",
       "ST"
     );
-    customer.address = address;
+    customer.changeAddress(address);
     await customerRepository.create(customer);
 
     const productRepository = new ProductRepository();

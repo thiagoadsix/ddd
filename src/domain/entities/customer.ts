@@ -1,3 +1,8 @@
+import { CustomerCreatedEvent } from "~domain/event/customer/customer-created.event";
+import { SendConsoleLogOneHandler } from "~domain/event/customer/handler/send-console-log-one.handler";
+import { SendConsoleLogSecondHandler } from "~domain/event/customer/handler/send-console-log-second.handler";
+import { SendConsoleLogHandler } from "~domain/event/customer/handler/send-console-log.handler";
+import { EventDispatcher } from "~domain/event/shared/event-dispatcher";
 import { Address } from "./address";
 
 export class Customer {
@@ -8,6 +13,20 @@ export class Customer {
   private _rewardsPoints: number = 0;
 
   constructor(id: string, name: string) {
+    const eventHandler1 = new SendConsoleLogOneHandler();
+    const eventHandler2 = new SendConsoleLogSecondHandler();
+    
+    const eventDispatcher = new EventDispatcher();
+
+    eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
+    eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
+
+    const customerCreatedEvent = new CustomerCreatedEvent({
+      name: this._name,
+    });
+
+    eventDispatcher.notify(customerCreatedEvent);
+
     this._id = id;
     this._name = name;
 
@@ -27,6 +46,28 @@ export class Customer {
   changeName(name: string): void {
     this._name = name;
     this.validate();
+  }
+
+  changeAddress(address: Address): void {
+    const eventDispatcher = new EventDispatcher();
+    const eventHandler = new SendConsoleLogHandler();
+
+    eventDispatcher.register("CustomerCreatedEvent", eventHandler);
+    
+    const customerCreatedEvent = new CustomerCreatedEvent({
+      id: this._id,
+      name: this._name,
+      address: {
+        street: address.street,
+        number: address.number,
+        zip: address.zip,
+        city: address.city,
+      }
+    });
+    
+    eventDispatcher.notify(customerCreatedEvent);
+
+    this._address = address;
   }
 
   activate(): void {
