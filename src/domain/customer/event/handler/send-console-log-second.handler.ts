@@ -1,4 +1,4 @@
-import { EventHandlerInterface } from "~domain/event/shared/interfaces/event-handler.interface";
+import { EventHandlerInterface } from "~domain/shared/event/interfaces/event-handler.interface";
 import { CustomerCreatedEvent } from "../customer-created.event";
 
 export class SendConsoleLogSecondHandler

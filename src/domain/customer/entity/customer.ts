@@ -1,9 +1,9 @@
-import { CustomerCreatedEvent } from "~domain/event/customer/customer-created.event";
-import { SendConsoleLogOneHandler } from "~domain/event/customer/handler/send-console-log-one.handler";
-import { SendConsoleLogSecondHandler } from "~domain/event/customer/handler/send-console-log-second.handler";
-import { SendConsoleLogHandler } from "~domain/event/customer/handler/send-console-log.handler";
-import { EventDispatcher } from "~domain/event/shared/event-dispatcher";
-import { Address } from "./address";
+import { SendConsoleLogOneHandler } from "~domain/customer/event/handler/send-console-log-one.handler";
+import { SendConsoleLogSecondHandler } from "~domain/customer/event/handler/send-console-log-second.handler";
+import { SendConsoleLogHandler } from "~domain/customer/event/handler/send-console-log.handler";
+import { EventDispatcher } from "~domain/shared/event/event-dispatcher";
+import { CustomerCreatedEvent } from "../event/customer-created.event";
+import { Address } from "../value-object/address";
 
 export class Customer {
   private _id: string;

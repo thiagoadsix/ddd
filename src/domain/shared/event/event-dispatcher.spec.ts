@@ -1,9 +1,9 @@
-import { Address } from "~domain/entities/address";
-import { CustomerCreatedEvent } from "../customer/customer-created.event";
-import { SendConsoleLogOneHandler } from "../customer/handler/send-console-log-one.handler";
-import { SendConsoleLogSecondHandler } from "../customer/handler/send-console-log-second.handler";
-import { SendEmailWhenProductIsCreatedHandler } from "../product/handler/send-email-when-product-is-created.handler";
-import { ProductCreatedEvent } from "../product/product-created.event";
+import { CustomerCreatedEvent } from "~domain/customer/event/customer-created.event";
+import { SendConsoleLogOneHandler } from "~domain/customer/event/handler/send-console-log-one.handler";
+import { SendConsoleLogSecondHandler } from "~domain/customer/event/handler/send-console-log-second.handler";
+import { Address } from "../../customer/value-object/address";
+import { SendEmailWhenProductIsCreatedHandler } from "~domain/product/event/handler/send-email-when-product-is-created.handler";
+import { ProductCreatedEvent } from "~domain/product/event/product-created.event";
 import { EventDispatcher } from "./event-dispatcher";
 
 describe("Domain Events", () => {
