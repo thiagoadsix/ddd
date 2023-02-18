@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
 
-import { CustomerModel } from "~infrastructure/customer/repository/sequelize/customer.model";
+import { CustomerModel } from "../../../customer/repository/sequelize/customer.model";
 import { OrderItemModel } from "./order-item.model";
 import { OrderModel } from "./order.model";
-import { ProductModel } from "~infrastructure/product/repository/sequelize/product.model";
+import { ProductModel } from "../../../product/repository/sequelize/product.model";
 
-import { CustomerRepository } from "~infrastructure/customer/repository/sequelize/customer.repository";
-import { ProductRepository } from "~infrastructure/product/repository/sequelize/product.repository";
+import { CustomerRepository } from "../../../customer/repository/sequelize/customer.repository";
+import { ProductRepository } from "../../../product/repository/sequelize/product.repository";
 import { OrderRepository } from "./order.repository";
 import { Customer } from "~domain/customer/entity/customer";
 import { Address } from "~domain/customer/value-object/address";
